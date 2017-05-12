@@ -11,5 +11,3 @@ call vundle#rc()
 Plugin 'gmarik/vundle'
 Plugin 'flazz/vim-colorschemes'
 colorscheme molokai
-
-
