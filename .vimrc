@@ -6,6 +6,7 @@ set shiftwidth=4
 set expandtab
 set tabstop=4
 filetype indent on
+" copy current file path
 nmap cp :let @"=expand("%:p")<CR>
 let vundle_dir = expand('~/.vim/bundle/vundle')
 if !isdirectory(vundle_dir)
