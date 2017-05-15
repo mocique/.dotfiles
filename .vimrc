@@ -10,4 +10,6 @@ set rtp+=$HOME/.vim/bundle/vundle
 call vundle#rc()
 Plugin 'gmarik/vundle'
 Plugin 'flazz/vim-colorschemes'
+Plugin 'scrooloose/nerdtree'
+Plugin 'kien/ctrlp.vim'
 colorscheme molokai
