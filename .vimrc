@@ -19,4 +19,5 @@ Plugin 'gmarik/vundle'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-surround'
 colorscheme molokai
