@@ -1,0 +1,8 @@
+[user]
+	name = chao443
+	email = chao@farmerlabs.com
+[user]
+    name = mocique
+    email = zhangchao2414@gmail.com
+[core]
+	excludesfile = /Users/lzzdk/.gitignore_global
