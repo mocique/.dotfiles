@@ -1,5 +1,3 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Maintainer: 
 "       Amir Salihefendic
 "       http://amix.dk - amix@amix.dk
 "
@@ -66,7 +64,7 @@ nmap <leader>w :w!<cr>
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+cmap  W w !sudo tee % > /dev/null
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -116,6 +114,10 @@ set hlsearch
 
 " Makes search act like search in modern browsers
 set incsearch 
+nnoremap <CR> :noh<CR>
+" nnoremap <silent> <esc> :noh<cr><esc>
+" nnoremap <esc> :noh<return><esc>
+" nnoremap <esc>^[ <esc>^[
 
 " Don't redraw while executing macros (good performance config)
 " set lazyredraw 
@@ -389,7 +391,48 @@ set rtp+=$HOME/.vim/bundle/vundle
 call vundle#rc()
 Plugin 'gmarik/vundle'
 Plugin 'flazz/vim-colorschemes'
+colorscheme molokai
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-surround'
-colorscheme molokai
+Plugin 'JamshedVesuna/vim-markdown-preview'
+let vim_markdown_preview_hotkey='<leader>mp'
+let vim_markdown_preview_browser='Google Chrome'
+let vim_markdown_preview_github=1
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+map ]j <Plug>Markdown_MoveToNextHeader
+map ]k <Plug>Markdown_MoveToPreviousHeader
+map ]h <Plug>Markdown_MoveToPreviousSiblingHeader
+map ]l <Plug>Markdown_MoveToNextSiblingHeader
+map ]c <Plug>Markdown_MoveToCurHeader
+map ]p <Plug>Markdown_MoveToParentHeader
+let g:vim_markdown_folding_disabled = 1
+set sessionoptions+=folds 
+au BufWinLeave *.* mkview
+au BufWinEnter *.* silent loadview
+Plugin 'davidhalter/jedi-vim'
+autocmd FileType python setlocal completeopt-=preview
+let g:jedi#popup_on_dot = 0
+" let g:jedi#show_call_signatures = "0"
+Plugin 'ervandew/supertab'
+let g:SuperTabDefaultCompletionType = "<c-n>"
+Plugin 'rizzatti/dash.vim'
+" map <leader>da y:Dash <C-r>"<CR>
+
+" unable arrow key in normal mode
+nmap <Up> m
+nmap <Down> m
+nmap <Left> m
+nmap <Right> m
+" function! GoogleSearch()
+"      let searchterm = getreg("g")
+"      silent! exec "silent! !open \"http://google.com/search?q=" . searchterm . "\" &"
+" endfunction
+" vnoremap <Leader>gg "gy<Esc>:call GoogleSearch()<CR>
+"
+Plugin 'szw/vim-g'
+vnoremap <Leader>gg y:Googlef <CR>
+
+
+
