@@ -41,7 +41,8 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Sets how many lines of history VIM has to remember
+
+" general setting
 set history=500
 set mouse=a
 set number
@@ -114,7 +115,10 @@ set hlsearch
 
 " Makes search act like search in modern browsers
 set incsearch 
-nnoremap <CR> :noh<CR>
+" disable highting after search
+nnoremap <silent> <CR> :noh<CR>
+
+
 " nnoremap <silent> <esc> :noh<cr><esc>
 " nnoremap <esc> :noh<return><esc>
 " nnoremap <esc>^[ <esc>^[
@@ -143,7 +147,7 @@ nnoremap <CR> :noh<CR>
 
 
 " Add a bit extra margin to the left
-set foldcolumn=1
+set foldcolumn=0
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -344,11 +348,21 @@ endif
 " map <leader>x :e ~/buffer.md<cr>
 
 " Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
+map <leader>pp :setlocal paste! <bar> set nonumber! <bar>  set norelativenumber!<cr>
 
 " copy current file path
 nmap cp :let @"=expand("%:p")<CR>
 
+"folding
+set sessionoptions+=folds 
+au BufWinLeave *.* mkview
+au BufWinEnter *.* silent loadview
+
+" disable arrow key in normal mode
+nmap <Up> m
+nmap <Down> m
+nmap <Left> m
+nmap <Right> m
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -390,16 +404,24 @@ set rtp+=$HOME/.vim/bundle/vundle
 
 call vundle#rc()
 Plugin 'gmarik/vundle'
+
 Plugin 'flazz/vim-colorschemes'
 colorscheme molokai
+
 Plugin 'scrooloose/nerdtree'
+
 Plugin 'kien/ctrlp.vim'
+
 Plugin 'tpope/vim-surround'
-Plugin 'JamshedVesuna/vim-markdown-preview'
-let vim_markdown_preview_hotkey='<leader>mp'
-let vim_markdown_preview_browser='Google Chrome'
-let vim_markdown_preview_github=1
+
+" Plugin 'JamshedVesuna/vim-markdown-preview'
+" let vim_markdown_preview_hotkey='<leader>mp'
+" let vim_markdown_preview_browser='Google Chrome'
+" let vim_markdown_preview_github=1
+
 Plugin 'godlygeek/tabular'
+
+" markdown 
 Plugin 'plasticboy/vim-markdown'
 map ]j <Plug>Markdown_MoveToNextHeader
 map ]k <Plug>Markdown_MoveToPreviousHeader
@@ -408,31 +430,58 @@ map ]l <Plug>Markdown_MoveToNextSiblingHeader
 map ]c <Plug>Markdown_MoveToCurHeader
 map ]p <Plug>Markdown_MoveToParentHeader
 let g:vim_markdown_folding_disabled = 1
-set sessionoptions+=folds 
-au BufWinLeave *.* mkview
-au BufWinEnter *.* silent loadview
+
+" vim jedi
 Plugin 'davidhalter/jedi-vim'
+" disable docstring window to popup
 autocmd FileType python setlocal completeopt-=preview
+" disable slow dot completion
 let g:jedi#popup_on_dot = 0
-" let g:jedi#show_call_signatures = "0"
+
+
+" use tab to brower auto-completion
 Plugin 'ervandew/supertab'
+" brwoser direction from top to button
 let g:SuperTabDefaultCompletionType = "<c-n>"
-Plugin 'rizzatti/dash.vim'
+
+" dash only in macos
+" Plugin 'rizzatti/dash.vim'
 " map <leader>da y:Dash <C-r>"<CR>
 
-" unable arrow key in normal mode
-nmap <Up> m
-nmap <Down> m
-nmap <Left> m
-nmap <Right> m
-" function! GoogleSearch()
-"      let searchterm = getreg("g")
-"      silent! exec "silent! !open \"http://google.com/search?q=" . searchterm . "\" &"
-" endfunction
-" vnoremap <Leader>gg "gy<Esc>:call GoogleSearch()<CR>
-"
+" google search, not for server
 Plugin 'szw/vim-g'
 vnoremap <Leader>gg y:Googlef <CR>
 
+" Plugin 'benmills/vimux'
+
+" open a new tmux pane in button for running
+" new support python, markdown
+function Run_curr_file(...)
+    let $file_name=expand('%:t')
+    let $file_path=expand('%:p')
+    let $file_dir = expand('%:p:h')
+    if &filetype == 'python'
+        silent !tmux split-window -p 10
+        let $cmd='python3 ' . $file_path
+        " let $num_tmux_windows=system('tmux list-windows | sed -E "s/.*\((.*)\ panes\).*/\1/"')
+        " let $new_tmux_window_ind = $num_tmux_windows -1
+        " let cmd_sent = "'.escape(cmd, '\"$').'"
+        " silent !tmux send-key -t $new_tmux_window_ind "$cmd" Enter
+        silent !tmux send-key -t 1 "$cmd" Enter
+        redraw!
+    endif
+    if &filetype == 'markdown'
+        silent !tmux split-window -p 10
+        let $cmd='grip --user mocique  ' . $file_path
+        silent !tmux send-key -t 1 "$cmd" Enter
+    endif
+    if &filetype == 'cpp'
+        silent !tmux split-window -p 10
+        let $cmd = 'make'
+        silent !tmux send-key -t 1 "cd $file_dir" Enter
+        silent !tmux send-key -t 1 "$cmd" Enter
+    endif
+endfunction
+map <F5> :call Run_curr_file()<cr>
 
 
