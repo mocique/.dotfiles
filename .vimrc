@@ -406,6 +406,10 @@ call vundle#rc()
 Plugin 'gmarik/vundle'
 
 Plugin 'flazz/vim-colorschemes'
+if !isdirectory("~/.vim/colors")
+    silent !mkdir ~/.vim/colors
+    silent !wget https://raw.githubusercontent.com/encody/vim-colors/master/colors/lyla.vim -O ~/.vim/colors/lyla.vim
+endif
 colorscheme lyla
 
 Plugin 'scrooloose/nerdtree'
