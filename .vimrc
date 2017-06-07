@@ -406,7 +406,7 @@ call vundle#rc()
 Plugin 'gmarik/vundle'
 
 Plugin 'flazz/vim-colorschemes'
-colorscheme molokai
+colorscheme lyla
 
 Plugin 'scrooloose/nerdtree'
 
@@ -442,7 +442,8 @@ let g:jedi#popup_on_dot = 0
 " use tab to brower auto-completion
 Plugin 'ervandew/supertab'
 " brwoser direction from top to button
-let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabCrMapping=1
 
 " dash only in macos
 " Plugin 'rizzatti/dash.vim'
