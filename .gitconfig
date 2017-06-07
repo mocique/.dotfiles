@@ -5,4 +5,4 @@
     name = mocique
     email = zhangchao2414@gmail.com
 [core]
-	excludesfile = /Users/lzzdk/.gitignore_global
+	excludesfile = $HOME/.gitignore_global
