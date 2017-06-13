@@ -459,10 +459,11 @@ Plugin 'szw/vim-g'
 vnoremap <Leader>gg y:Googlef <CR>
 
 " Plugin 'benmills/vimux'
+" Plugin 'ivanov/vim-ipython'
 
 " open a new tmux pane in button for running
 " new support python, markdown
-function Run_curr_file(...)
+function! Run_curr_file(...)
     let $file_name=expand('%:t')
     let $file_path=expand('%:p')
     let $file_dir = expand('%:p:h')
@@ -478,7 +479,8 @@ function Run_curr_file(...)
     endif
     if &filetype == 'markdown'
         silent !tmux split-window -p 10
-        let $cmd='grip --user mocique  ' . $file_path
+        " let $cmd='grip --user mocique  ' . $file_path . ' 0.0.0.0:6010'
+        let $cmd='grip ' . $file_path . ' 0.0.0.0:6010'
         silent !tmux send-key -t 1 "$cmd" Enter
     endif
     if &filetype == 'cpp'
@@ -491,3 +493,6 @@ endfunction
 map <F5> :call Run_curr_file()<cr>
 
 
+Plugin 'mattn/emmet-vim'
+" let g:user_emmet_install_global = 0
+" autocmd FileType html,css,md EmmetInstall
