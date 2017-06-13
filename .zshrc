@@ -21,9 +21,16 @@ export PATH=/usr/local/Cellar/p7zip/16.02/bin/:$PATH
 export PATH=/usr/local/Cellar/rsync/3.1.2/bin/:$PATH
 export PATH=/usr/local/Cellar/screen/4.5.1/bin/:$PATH
 ## autojump
-export PATH=/usr/local/Cellar/autojump/22.5.1/bin:$PATH
-[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+# export PATH=/usr/local/Cellar/autojump/22.5.1/bin:$PATH
+# [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 export PATH="/usr/local/Cellar/grep/3.0/bin/:$PATH"
+# cuda
+if [ `uname` = "Linux" ]
+then
+    export PATH=$PATH:/usr/local/cuda/bin
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/lib64/stubs
+fi
+
 
 
 # c++
@@ -38,6 +45,11 @@ export PATH="$HOME/anaconda2/bin:$PATH"
 ## self modules
 export PYTHONPATH=$HOME/tensorflow/models/:$PYTHONPATH
 export PYTHONPATH=$HOME/tensorflow/models/slim/:$PYTHONPATH
+if [ `uname` = "Linux" ]
+then
+    export PYTHONPATH=/ml_storage/code:/ml_storage/code/tensorflow_models:$PYTHONPATH
+    export PYTHONPATH=/ml_storage/code/tensorflow_models/slim:$PYTHONPATH
+fi
 
 # miscellaneous
 ## self defined command
