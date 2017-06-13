@@ -496,3 +496,4 @@ map <F5> :call Run_curr_file()<cr>
 Plugin 'mattn/emmet-vim'
 " let g:user_emmet_install_global = 0
 " autocmd FileType html,css,md EmmetInstall
+set clipboard=unnamed
