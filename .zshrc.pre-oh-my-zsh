@@ -79,4 +79,4 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-DISPLAY="localhost:10.0"
+# DISPLAY="localhost:10.0"
