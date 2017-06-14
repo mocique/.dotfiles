@@ -497,3 +497,9 @@ Plugin 'mattn/emmet-vim'
 " let g:user_emmet_install_global = 0
 " autocmd FileType html,css,md EmmetInstall
 set clipboard=unnamed
+" if $TMUX == ''
+"     set clipboard+=unnamed
+" endif
+Plugin 'vim-scripts/vim-auto-save'
+let g:auto_save = 1
+let g:auto_save_no_updatetime = 1
