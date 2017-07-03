@@ -468,14 +468,26 @@ function! Run_curr_file(...)
     let $file_path=expand('%:p')
     let $file_dir = expand('%:p:h')
     if &filetype == 'python'
-        silent !tmux split-window -p 10
-        let $cmd='python3 ' . $file_path
-        " let $num_tmux_windows=system('tmux list-windows | sed -E "s/.*\((.*)\ panes\).*/\1/"')
-        " let $new_tmux_window_ind = $num_tmux_windows -1
-        " let cmd_sent = "'.escape(cmd, '\"$').'"
-        " silent !tmux send-key -t $new_tmux_window_ind "$cmd" Enter
-        silent !tmux send-key -t 1 "$cmd" Enter
-        redraw!
+        if ($TMUX=="")
+            " let $cmd='python3 ' . $file_path
+            " echom $cmd
+            " !$cmd
+            " !python3 test_f5.py
+            " let $cmd="echo 1"
+            " !$cmd 
+            !python3 %
+        else
+            silent !tmux split-window -p 10
+            let $cmd='python3 ' . $file_path
+            " let $num_tmux_windows=system('tmux list-windows | sed -E "s/.*\((.*)\ panes\).*/\1/"')
+            " let $new_tmux_window_ind = $num_tmux_windows -1
+            " let cmd_sent = "'.escape(cmd, '\"$').'"
+            " silent !tmux send-key -t $new_tmux_window_ind "$cmd" Enter
+            silent !tmux send-key -t 1 "$cmd" Enter
+            redraw!
+
+        endif
+
     endif
     if &filetype == 'markdown'
         silent !tmux split-window -p 10
@@ -492,7 +504,6 @@ function! Run_curr_file(...)
 endfunction
 map <F5> :call Run_curr_file()<cr>
 
-
 Plugin 'mattn/emmet-vim'
 " let g:user_emmet_install_global = 0
 " autocmd FileType html,css,md EmmetInstall
@@ -504,3 +515,11 @@ Plugin 'vim-scripts/vim-auto-save'
 let g:auto_save = 1
 let g:auto_save_no_updatetime = 1
 let g:auto_save_in_insert_mode = 0
+Plugin 'fisadev/vim-isort'
+nmap <Leader>im :le<CR>ddggp<C-o>
+
+" Plugin 'jceb/vim-orgmode'
+" Plugin 'tpope/vim-speeddating'
+" Plugin 'majutsushi/tagbar'
+
+
